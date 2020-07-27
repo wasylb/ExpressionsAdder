@@ -81,7 +81,6 @@ export class Expression implements IExpression, ICalculable, IPrintable {
                 return -1;
             }
         };
-
         this._terms.sort(sortFn);
     }
 

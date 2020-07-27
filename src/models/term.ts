@@ -27,7 +27,7 @@ export class Term implements ICalculable, IPrintable {
         this._exponent = exponent;
     }
 
-    set(constant: number, variable: number, exponent: number): void {
+    set(constant: number, exponent: number): void {
         this._constant = constant;
         this._exponent = exponent;
     }
