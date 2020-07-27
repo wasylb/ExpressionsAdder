@@ -13,7 +13,9 @@
   "scripts": {
     "test": "jest dist",
     "build": "tsc",
-    "build-and-test": "tsc && jest dist"
+    "start": "node dist/expressions-adder.js",
+    "build-and-test": "tsc && jest dist",
+    "build-and-start": "tsc && node dist/expressions-adder.js"
   },
   "repository": {
     "type": "git",
