@@ -1,0 +1,33 @@
+{
+  "name": "expressionsadder",
+  "version": "1.0.0",
+  "description": "Adding of two simple mathematical expressions which are of the form Ax^a + Bx^b + …",
+  "main": "dist/expressions-adder.js",
+  "dependencies": {
+    "@types/jest": "^26.0.7",
+    "@types/typescript": "^2.0.0",
+    "jest": "^26.1.0",
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest dist",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wasylb/ExpressionsAdder.git"
+  },
+  "keywords": [
+    "expression",
+    "sum",
+    "adder",
+    "have_a_nice_day_eth_:)"
+  ],
+  "author": "Bartosz Wasilew",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wasylb/ExpressionsAdder/issues"
+  },
+  "homepage": "https://github.com/wasylb/ExpressionsAdder#readme"
+}
