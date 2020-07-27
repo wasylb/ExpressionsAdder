@@ -12,7 +12,10 @@
   "devDependencies": {},
   "scripts": {
     "test": "jest dist",
-    "build": "tsc"
+    "build": "rd /s /q dist && tsc",
+    "start": "node dist/expressions-adder.js",
+    "build-and-test": "rd /s /q dist && tsc && jest dist",
+    "build-and-start": "rd /s /q dist && tsc && node dist/expressions-adder.js"
   },
   "repository": {
     "type": "git",

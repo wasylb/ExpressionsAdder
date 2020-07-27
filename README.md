@@ -11,4 +11,4 @@ In order to build this application, please run `npm run build` command. After th
 
 
 ### Testing
-In order to perform tests (via Jest) please run `npm run tests` command. **Please remember to `build` the application before (tests target is the dist folder)**.
+In order to perform tests (via Jest) please run `npm run test` command. **Please remember to `build` the application before (tests target is the dist folder)**.
