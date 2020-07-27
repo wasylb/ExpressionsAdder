@@ -12,7 +12,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "jest dist",
-    "build": "tsc"
+    "build": "tsc",
+    "build-and-test": "tsc && jest dist"
   },
   "repository": {
     "type": "git",
