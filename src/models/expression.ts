@@ -3,6 +3,7 @@ import { IExpression } from "./interfaces/IExpression";
 import { ICalculable } from "./interfaces/ICalculable";
 import { IPrintable } from "./interfaces/IPrintable";
 import { SimpleTerm } from "./simpleTerm";
+import generalUtils from "../generalUtils";
 
 export class Expression implements IExpression, ICalculable, IPrintable {
     private _terms: Term[];
@@ -20,7 +21,7 @@ export class Expression implements IExpression, ICalculable, IPrintable {
     }
 
     insertTerm(term: Term): void {
-        if (term instanceof SimpleTerm || this.isRealNumber(term.constant) && this.isRealNumber(term.exponent)) {
+        if (term instanceof SimpleTerm || generalUtils.isRealNumber(term.constant) && generalUtils.isRealNumber(term.exponent)) {
             this.terms.push(term);
         } else {
             throw new Error('One of the provided parameters is not a real number');
@@ -29,8 +30,10 @@ export class Expression implements IExpression, ICalculable, IPrintable {
 
     addExpression(expressionAddend: Expression): Expression {
         let resultExpression = new Expression();
-        const constantsReducer = (accumulator: number, currentValue: Term) => accumulator + currentValue.constant;
-        const valueReducer = (accumulator: number, currentValue: Term) => accumulator + (currentValue as SimpleTerm).value;
+        const valueReducer = (accumulator: number, currentValue: number) => {
+            return accumulator + currentValue;
+        }
+
         const expressionsTerms: Array<Term> = [...this._terms, ...expressionAddend.terms];
         const exponentsTermsMap: Map<number, Array<Term | SimpleTerm>> = new Map();
         expressionsTerms.forEach(term => {
@@ -44,11 +47,11 @@ export class Expression implements IExpression, ICalculable, IPrintable {
 
         exponentsTermsMap.forEach((exponentTerms, exponent, map) => {
             if (Number.isNaN(exponent)) {
-                const reducedValues = exponentTerms.reduce(valueReducer, 0);
+                const reducedValues = (exponentTerms as Array<SimpleTerm>).map(term => term.value).reduce(valueReducer);
                 const tmpSimpleTerm: SimpleTerm = new SimpleTerm(reducedValues);
                 resultExpression.insertTerm(tmpSimpleTerm);
             } else {
-                const reducedConstants = exponentTerms.reduce(constantsReducer, 0);
+                const reducedConstants = (exponentTerms as Array<Term>).map(term => term.constant).reduce(valueReducer);
                 const tmpTerm: Term = new Term(reducedConstants, exponent);
                 resultExpression.insertTerm(tmpTerm);
             }
@@ -65,8 +68,8 @@ export class Expression implements IExpression, ICalculable, IPrintable {
         this.sortTerms();
         let expressionString = '';
         this._terms.forEach((term, index, array) => {
-            expressionString = (term instanceof SimpleTerm) ? expressionString.concat((term as SimpleTerm).toString()) : expressionString.concat((term as Term).toString());
-            if (index !== this._terms.length - 1) {
+            expressionString += term.toString();
+            if (index !== this._terms.length - 1 && term.toString() !== '') {
                 expressionString = expressionString.concat(' + ');
             }
         });
@@ -82,9 +85,5 @@ export class Expression implements IExpression, ICalculable, IPrintable {
             }
         };
         this._terms.sort(sortFn);
-    }
-
-    isRealNumber(num: number) {
-        return typeof num == 'number' && !isNaN(num) && isFinite(num);
     }
 }

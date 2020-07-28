@@ -33,7 +33,7 @@ export class Term implements ICalculable, IPrintable {
     }
 
     toString(): string {
-        return `${this._constant !== 0 ? this._constant.toString().concat('x') : ''}${this._exponent && this._constant !== 0 ? ('^').concat(this._exponent.toString()) : ''}`;
+        return `${this._constant !== 0 ? this._constant.toString().concat('x') : ''}${this._exponent && this._constant !== 0 ? ('^').concat(this._exponent.toString()) : ''}` || '';
     }
 
     calculateFor(variable: number): number {
